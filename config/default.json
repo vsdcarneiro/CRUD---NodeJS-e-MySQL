@@ -1,0 +1,9 @@
+{
+  "mysql": {
+    "database": "questions_answers",
+    "username": "root",
+    "password": "12345678",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}
