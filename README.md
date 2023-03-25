@@ -1,2 +1,2 @@
 # Tech Issues---NodeJS-e-MySQL
-Sistema para cadastro de problemas tech e acompanhamento da solução
+Sistema para cadastro de problemas tech e acompanhamento de solução.
