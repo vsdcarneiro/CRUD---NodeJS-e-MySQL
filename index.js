@@ -41,11 +41,48 @@ app.get("/issue/:id", (req, res) => {
   const id = req.params.id;
   Issue.findOne({ where: { id } }).then((issue) => {
     if (issue) {
-      res.render("issue", { issue });
+      Solution.findAll({
+        where: { issueId: issue.id },
+        order: [["id", "DESC"]],
+      }).then((comments) => res.render("issue", { issue, comments }));
     } else {
       res.redirect("/");
     }
   });
+});
+
+app.get("/edit-issue/:id", (req, res) => {
+  const id = req.params.id;
+  Issue.findOne({ where: { id } }).then((issue) => {
+    if (issue) {
+      res.render("edit-issue", { issue });
+    } else {
+      res.redirect("/");
+    }
+  });
+});
+
+app.post("/save-edited-issue/:id", (req, res) => {
+  const [id, title, description] = [
+    req.params.id,
+    req.body.title,
+    req.body.description,
+  ];
+  Issue.update({ title, description }, { where: { id } }).then(() => {
+    res.redirect(`/issue/${id}`);
+  });
+});
+
+app.get("/close-issue/:id", (req, res) => {
+  const id = req.params.id;
+  Issue.destroy({ where: { id } }).then(() => res.redirect("/"));
+});
+
+app.post("/comment", (req, res) => {
+  const [comment, issueId] = [req.body.comment, req.body.issue];
+  Solution.create({ comment, issueId }).then(() =>
+    res.redirect(`/issue/${issueId}`)
+  );
 });
 
 app.listen(port, () => {
