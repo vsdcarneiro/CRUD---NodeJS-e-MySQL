@@ -1,0 +1,32 @@
+<%- include('partials/header.ejs') %>
+<body>
+  <%- include('partials/navbar.ejs') %>
+  <div class="container">
+    <div class="card" id="issue-form">
+      <div class="card-header">
+        <h3>Edit issue</h3>
+      </div>
+      <div class="card-body">
+        <form action="/save-edited-issue/<%= issue.id %>" method="post">
+          <label>Title</label>
+          <input
+            type="text"
+            value="<%= issue.title %>"
+            class="form-control"
+            name="title"
+          />
+          <br /><label>Description</label>
+          <textarea name="description" value class="form-control">
+<%= issue.description %></textarea
+          >
+          <br />
+          <button type="submit" class="btn btn-success">Save</button>
+          <a href="/issue/<%= issue.id %>" class="btn btn-outline-danger"
+            >Cancel</a
+          >
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+<%- include('partials/footer.ejs') %>
